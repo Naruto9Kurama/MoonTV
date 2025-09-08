@@ -9,8 +9,8 @@ const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
   // 设置二级路径
-  basePath: '/moon', // 这里换成你想要的二级路径
-  assetPrefix: '/moon/',
+  // basePath: '/moon', // 这里换成你想要的二级路径
+  // assetPrefix: '/moon/',
   // Uncoment to add domain whitelist
   images: {
     unoptimized: true,
