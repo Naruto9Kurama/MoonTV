@@ -108,7 +108,8 @@ function handleAuthFailure(
   }
 
   // 否则重定向到登录页面
-  const loginUrl = new URL('/login', request.url);
+  const basePath = request.nextUrl.basePath || ''; // 获取基础路径（二级目录）
+  const loginUrl = new URL(basePath + '/login', request.nextUrl.origin);
   // 保留完整的URL，包括查询参数
   const fullUrl = `${pathname}${request.nextUrl.search}`;
   loginUrl.searchParams.set('redirect', fullUrl);
