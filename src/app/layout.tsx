@@ -5,7 +5,7 @@ import { Inter } from 'next/font/google';
 
 import './globals.css';
 import 'sweetalert2/dist/sweetalert2.min.css';
-
+import '@/lib/fetch-interceptor'
 import { getConfig } from '@/lib/config';
 import RuntimeConfig from '@/lib/runtime';
 
