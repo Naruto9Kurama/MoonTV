@@ -24,7 +24,7 @@ interface ConfigFileStruct {
   }[];
 }
 
-export const BASE_PATH = process.env.BASE_SUBPATH || '';
+export const BASE_PATH = process.env.NEXT_PUBLIC_BASE_SUBPATH || '';
 
 export const API_CONFIG = {
   search: {

@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-const BASE_PATH = process.env.BASE_SUBPATH || '';
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_SUBPATH || '';
 
 const nextConfig = {
   output: 'standalone',
