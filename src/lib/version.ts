@@ -2,7 +2,7 @@
 
 'use client';
 import { httpFetch } from '@/lib/http';
-const CURRENT_VERSION = '20250909133911';
+const CURRENT_VERSION = '20250909141014';
 
 // 版本检查结果枚举
 export enum UpdateStatus {

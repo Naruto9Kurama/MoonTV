@@ -1,18 +1,19 @@
 // lib/http.ts
-const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || '/moon';
-
+import { BASE_PATH } from '@/lib/config';
 export async function httpFetch(input: string, init?: RequestInit) {
   const url = input.startsWith('http') ? input : `${BASE_PATH}${input}`;
-  const headers: HeadersInit = {
-    ...(init?.headers || {}),
-  };
-  const response = await fetch(url, { ...init, headers });
+  // 合并 headers
+  // const headers: HeadersInit = {
+  //   ...(init?.headers || {}),
+  // };
 
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status}`);
-  }
-
-  return response.json();
+  // // 合并其他 init 选项
+  // const fetchOptions: RequestInit = {
+  //   ...init,
+  //   headers,
+  // };
+  // console.log("fetchOptions", fetchOptions)
+  return await fetch(url, init);
 }
 // 挂载到全局（Node + 浏览器都能用）
 // (globalThis as any).httpFetch = httpFetch;

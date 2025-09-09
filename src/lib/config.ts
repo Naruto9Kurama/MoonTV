@@ -24,6 +24,8 @@ interface ConfigFileStruct {
   }[];
 }
 
+export const BASE_PATH = process.env.BASE_SUBPATH || '';
+
 export const API_CONFIG = {
   search: {
     path: '?ac=videolist&wd=',
