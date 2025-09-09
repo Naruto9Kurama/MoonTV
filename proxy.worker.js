@@ -1,5 +1,5 @@
 /* eslint-disable */
-
+import { httpFetch } from '@/lib/http';
 addEventListener('fetch', (event) => {
   event.respondWith(handleRequest(event.request));
 });
@@ -41,7 +41,7 @@ async function handleRequest(request) {
     });
 
     // 发起对目标 URL 的请求
-    const response = await fetch(modifiedRequest);
+    const response = await httpFetch(modifiedRequest);
     let body = response.body;
 
     // 处理重定向

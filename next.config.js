@@ -11,6 +11,14 @@ const nextConfig = {
   // 设置二级路径
   basePath: '/moon', // 这里换成你想要的二级路径
   assetPrefix: '/moon/',
+  // rewrites() {
+  //   return [
+  //     {
+  //       source: '/moon/api/:path*', // 浏览器访问 /moon/api/xxx
+  //       destination: '/api/:path*', // 实际路由 /api/xxx
+  //     },
+  //   ];
+  // },
   // Uncoment to add domain whitelist
   images: {
     unoptimized: true,

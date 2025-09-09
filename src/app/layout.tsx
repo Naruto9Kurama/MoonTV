@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
+import '@/lib/http';
 
 import './globals.css';
 import 'sweetalert2/dist/sweetalert2.min.css';
-import '@/lib/fetch-interceptor'
+
 import { getConfig } from '@/lib/config';
 import RuntimeConfig from '@/lib/runtime';
 

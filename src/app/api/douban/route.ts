@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 
 import { getCacheTime } from '@/lib/config';
+import { httpFetch } from '@/lib/http';
 import { DoubanItem, DoubanResult } from '@/lib/types';
-
 interface DoubanApiResponse {
   subjects: Array<{
     id: string;
@@ -30,7 +30,7 @@ async function fetchDoubanData(url: string): Promise<DoubanApiResponse> {
 
   try {
     // 尝试直接访问豆瓣API
-    const response = await fetch(url, fetchOptions);
+    const response = await httpFetch(url, fetchOptions);
     clearTimeout(timeoutId);
 
     if (!response.ok) {
@@ -143,7 +143,7 @@ function handleTop250(pageStart: number) {
     },
   };
 
-  return fetch(target, fetchOptions)
+  return httpFetch(target, fetchOptions)
     .then(async (fetchResponse) => {
       clearTimeout(timeoutId);
 

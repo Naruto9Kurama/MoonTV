@@ -5,10 +5,21 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getAuthInfoFromCookie } from '@/lib/auth';
 
 export async function middleware(request: NextRequest) {
+  // const { pathname } = request.nextUrl;
   const { pathname } = request.nextUrl;
+  // 如果是 /moon/api/*，把 /moon 去掉
+  const internalPath = pathname;
+  // if (internalPath.startsWith('/moon')) {
+  //   // 构造新的 URL，内部重写路径不带 /moon
+  //   internalPath = internalPath.replace(/^\/moon/, '');
+  //   const internalUrl = new URL(internalPath + search, origin);
+  //   console.log('Middleware rewrite to:', internalUrl.href); // /api/...
+  //   return NextResponse.rewrite(internalUrl);
+  // }
+  console.log('Middleware - internalPath:', internalPath);
 
   // 跳过不需要认证的路径
-  if (shouldSkipAuth(pathname)) {
+  if (shouldSkipAuth(internalPath)) {
     return NextResponse.next();
   }
 
@@ -24,13 +35,13 @@ export async function middleware(request: NextRequest) {
   const authInfo = getAuthInfoFromCookie(request);
 
   if (!authInfo) {
-    return handleAuthFailure(request, pathname);
+    return handleAuthFailure(request, internalPath);
   }
 
   // localstorage模式：在middleware中完成验证
   if (storageType === 'localstorage') {
     if (!authInfo.password || authInfo.password !== process.env.PASSWORD) {
-      return handleAuthFailure(request, pathname);
+      return handleAuthFailure(request, internalPath);
     }
     return NextResponse.next();
   }
@@ -38,7 +49,7 @@ export async function middleware(request: NextRequest) {
   // 其他模式：只验证签名
   // 检查是否有用户名（非localStorage模式下密码不存储在cookie中）
   if (!authInfo.username || !authInfo.signature) {
-    return handleAuthFailure(request, pathname);
+    return handleAuthFailure(request, internalPath);
   }
 
   // 验证签名（如果存在）
@@ -56,7 +67,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // 签名验证失败或不存在签名
-  return handleAuthFailure(request, pathname);
+  return handleAuthFailure(request, internalPath);
 }
 
 // 验证签名

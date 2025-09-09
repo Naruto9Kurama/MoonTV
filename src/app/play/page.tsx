@@ -21,6 +21,7 @@ import {
   saveSkipConfig,
   subscribeToDataUpdates,
 } from '@/lib/db.client';
+import { httpFetch } from '@/lib/http';
 import { SearchResult } from '@/lib/types';
 import { getVideoResolutionFromM3u8, processImageUrl } from '@/lib/utils';
 
@@ -600,7 +601,7 @@ function PlayPageClient() {
       id: string
     ): Promise<SearchResult[]> => {
       try {
-        const detailResponse = await fetch(
+        const detailResponse = await httpFetch(
           `/api/detail?source=${source}&id=${id}`
         );
         if (!detailResponse.ok) {
@@ -619,7 +620,7 @@ function PlayPageClient() {
     const fetchSourcesData = async (query: string): Promise<SearchResult[]> => {
       // 根据搜索词获取全部源信息
       try {
-        const response = await fetch(
+        const response = await httpFetch(
           `/api/search?q=${encodeURIComponent(query.trim())}`
         );
         if (!response.ok) {

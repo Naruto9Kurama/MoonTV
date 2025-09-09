@@ -35,6 +35,7 @@ import Swal from 'sweetalert2';
 
 import { AdminConfig, AdminConfigResult } from '@/lib/admin.types';
 import { getAuthInfoFromBrowserCookie } from '@/lib/auth';
+import { httpFetch } from '@/lib/http';
 
 import PageLayout from '@/components/PageLayout';
 
@@ -166,7 +167,7 @@ const UserConfig = ({ config, role, refreshConfig }: UserConfigProps) => {
       // 先更新本地 UI
       setUserSettings((prev) => ({ ...prev, enableRegistration: value }));
 
-      const res = await fetch('/api/admin/user', {
+      const res = await httpFetch('/api/admin/user', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -258,7 +259,7 @@ const UserConfig = ({ config, role, refreshConfig }: UserConfigProps) => {
     targetPassword?: string
   ) => {
     try {
-      const res = await fetch('/api/admin/user', {
+      const res = await httpFetch('/api/admin/user', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -679,7 +680,7 @@ const VideoSourceConfig = ({
   // 通用 API 请求
   const callSourceApi = async (body: Record<string, any>) => {
     try {
-      const resp = await fetch('/api/admin/source', {
+      const resp = await httpFetch('/api/admin/source', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...body }),
@@ -1026,7 +1027,7 @@ const CategoryConfig = ({
   // 通用 API 请求
   const callCategoryApi = async (body: Record<string, any>) => {
     try {
-      const resp = await fetch('/api/admin/category', {
+      const resp = await httpFetch('/api/admin/category', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...body }),
@@ -1385,7 +1386,7 @@ const SiteConfigComponent = ({ config }: { config: AdminConfig | null }) => {
   const handleSave = async () => {
     try {
       setSaving(true);
-      const resp = await fetch('/api/admin/site', {
+      const resp = await httpFetch('/api/admin/site', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...siteSettings }),
@@ -1706,7 +1707,7 @@ function AdminPageClient() {
         setLoading(true);
       }
 
-      const response = await fetch(`/api/admin/config`);
+      const response = await httpFetch(`/api/admin/config`);
 
       if (!response.ok) {
         const data = (await response.json()) as any;
@@ -1753,7 +1754,7 @@ function AdminPageClient() {
     if (!isConfirmed) return;
 
     try {
-      const response = await fetch(`/api/admin/reset`);
+      const response = await httpFetch(`/api/admin/reset`);
       if (!response.ok) {
         throw new Error(`重置失败: ${response.status}`);
       }

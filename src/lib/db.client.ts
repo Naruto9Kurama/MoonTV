@@ -14,9 +14,10 @@
  * 如后续需要在客户端读取收藏等其它数据，可按同样方式在此文件中补充实现。
  */
 
+import { httpFetch } from '@/lib/http';
+
 import { getAuthInfoFromBrowserCookie } from './auth';
 import { SkipConfig } from './types';
-
 // 全局错误触发函数
 function triggerGlobalError(message: string) {
   if (typeof window !== 'undefined') {
@@ -410,7 +411,7 @@ async function fetchWithAuth(
   url: string,
   options?: RequestInit
 ): Promise<Response> {
-  const res = await fetch(url, options);
+  const res = await httpFetch(url, options);
   if (!res.ok) {
     // 如果是 401 未授权，跳转到登录页面
     if (res.status === 401) {

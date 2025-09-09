@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 
 'use client';
-
-const CURRENT_VERSION = '20250804231933';
+import { httpFetch } from '@/lib/http';
+const CURRENT_VERSION = '20250909133911';
 
 // 版本检查结果枚举
 export enum UpdateStatus {
@@ -53,7 +53,7 @@ async function fetchVersionFromUrl(url: string): Promise<string | null> {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 5000); // 5秒超时
 
-    const response = await fetch(url, {
+    const response = await httpFetch(url, {
       method: 'GET',
       signal: controller.signal,
       headers: {

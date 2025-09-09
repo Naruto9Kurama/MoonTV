@@ -12,6 +12,7 @@ import {
   getSearchHistory,
   subscribeToDataUpdates,
 } from '@/lib/db.client';
+import { httpFetch } from '@/lib/http';
 import { SearchResult } from '@/lib/types';
 import { yellowWords } from '@/lib/yellow';
 
@@ -162,7 +163,7 @@ function SearchPageClient() {
   const fetchSearchResults = async (query: string) => {
     try {
       setIsLoading(true);
-      const response = await fetch(
+      const response = await httpFetch(
         `/api/search?q=${encodeURIComponent(query.trim())}`
       );
       const data = await response.json();

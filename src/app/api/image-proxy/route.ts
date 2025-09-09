@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+import { httpFetch } from '@/lib/http';
 export const runtime = 'edge';
 
 // OrionTV 兼容接口
@@ -12,7 +13,7 @@ export async function GET(request: Request) {
   }
 
   try {
-    const imageResponse = await fetch(imageUrl, {
+    const imageResponse = await httpFetch(imageUrl, {
       headers: {
         Referer: 'https://movie.douban.com/',
         'User-Agent':

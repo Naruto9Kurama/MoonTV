@@ -1,6 +1,7 @@
+import { httpFetch } from '@/lib/http';
+
 import { DoubanItem, DoubanResult } from './types';
 import { getDoubanProxyUrl } from './utils';
-
 interface DoubanCategoriesParams {
   kind: 'tv' | 'movie';
   category: string;
@@ -52,7 +53,7 @@ async function fetchWithTimeout(
   };
 
   try {
-    const response = await fetch(finalUrl, fetchOptions);
+    const response = await httpFetch(finalUrl, fetchOptions);
     clearTimeout(timeoutId);
     return response;
   } catch (error) {
@@ -143,7 +144,7 @@ export async function getDoubanCategories(
   } else {
     // 使用服务端 API（当没有设置代理 URL 时）
     const { kind, category, type, pageLimit = 20, pageStart = 0 } = params;
-    const response = await fetch(
+    const response = await httpFetch(
       `/api/douban/categories?kind=${kind}&category=${category}&type=${type}&limit=${pageLimit}&start=${pageStart}`
     );
 
@@ -178,7 +179,7 @@ export async function getDoubanList(
     // 使用客户端代理获取（当设置了代理 URL 时）
     return fetchDoubanList(params);
   } else {
-    const response = await fetch(
+    const response = await httpFetch(
       `/api/douban?tag=${tag}&type=${type}&pageSize=${pageLimit}&pageStart=${pageStart}`
     );
 

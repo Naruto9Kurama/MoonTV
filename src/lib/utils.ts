@@ -2,6 +2,7 @@
 
 import Hls from 'hls.js';
 
+import { httpFetch } from '@/lib/http';
 /**
  * 获取图片代理 URL 设置
  */
@@ -111,7 +112,7 @@ export async function getVideoResolutionFromM3u8(m3u8Url: string): Promise<{
       let pingTime = 0;
 
       // 测量ping时间（使用m3u8 URL）
-      fetch(m3u8Url, { method: 'HEAD', mode: 'no-cors' })
+      httpFetch(m3u8Url, { method: 'HEAD', mode: 'no-cors' })
         .then(() => {
           pingTime = performance.now() - pingStart;
         })
