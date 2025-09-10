@@ -34,7 +34,7 @@ function VersionDisplay() {
   return (
     <button
       onClick={() =>
-        window.open('https://github.com/senshinya/MoonTV', '_blank')
+        window.open('https://github.com/senshinya/MovieHub', '_blank')
       }
       className='absolute bottom-4 left-1/2 transform -translate-x-1/2 flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 transition-colors cursor-pointer'
     >
@@ -109,6 +109,7 @@ function LoginPageClient() {
       if (res.ok) {
         const redirect = searchParams.get('redirect') || '/';
         router.replace(redirect);
+        router.refresh();
       } else if (res.status === 401) {
         setError('密码错误');
       } else {
